@@ -1,0 +1,36 @@
+<html>
+    <title>You have been rickrolled</title>
+    <head> 
+        <!-- rickroll use redirect link https://www.youtube.com/watch?v=xvFZjo5PgG0 if not china-->
+        <!-- detect if user is from china-->
+        <script>
+            function isInChina(cb) {
+            var url = '//graph.facebook.com/feed?callback=h';
+            var xhr = new XMLHttpRequest();
+            var called = false;
+            xhr.open('GET', url);
+            xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+            called = true;
+            cb(false);
+            }
+            };
+            xhr.send();
+            // timeout 1s, this facebook API is very fast.
+            setTimeout(function() {
+            if (!called) {
+            xhr.abort();
+            cb(true);
+            }
+            }, 1000);
+            };
+            if (isInChina()) {
+                // redirect to bilibili
+                window.location.replace("https://www.bilibili.com/video/BV1Az4y1z7Jy");
+            } else {
+                // redirect to youtube
+                window.location.replace("https://www.youtube.com/watch?v=xvFZjo5PgG0");
+            }
+        </script>
+    </head>
+</html>
